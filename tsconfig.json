@@ -5,6 +5,9 @@
     "baseUrl": ".",
     "paths": {
       "$components/*": ["app/components/*"],
+      "$components": ["app/components"],
+      "$screens/*": ["app/screens/*"],
+      "$screens": ["app/screens"],
       "$hooks": ["app/hooks"],
       "$types": ["app/types"]
     }

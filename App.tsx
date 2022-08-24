@@ -1,23 +1,29 @@
-import { StatusBar } from "expo-status-bar";
-import { StyleSheet, Text, View } from "react-native";
+// import { StatusBar } from "expo-status-bar";
+import { StyleSheet, Text, View, StatusBar } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
-import AppBar from "$components/AppBar/AppBar";
+// import { AppBar } from "$components";
+import { Login } from "$screens";
 
 export default function App() {
   return (
-    <SafeAreaView style={styles.container}>
-      <StatusBar style="auto" />
-      <AppBar />
-      <Text>Open up App.tsx to start working on your app!</Text>
+    <SafeAreaView style={styles.wrapper}>
+      <View style={styles.container}>
+        <Login />
+      </View>
     </SafeAreaView>
   );
 }
 
 const styles = StyleSheet.create({
-  container: {
-    backgroundColor: "#fff",
+  wrapper: {
     alignItems: "center",
     justifyContent: "center",
+  },
+  container: {
+    width: "100%",
+    paddingLeft: 20,
+    paddingRight: 20,
+    paddingTop: 10,
   },
 });

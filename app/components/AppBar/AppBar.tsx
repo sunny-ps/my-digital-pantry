@@ -10,7 +10,7 @@ const AppBar = () => {
         color="white"
         backgroundColor="transparent"
         style={{ height: 34 }}
-      ></Entypo.Button>
+      />
       <Text style={styles.titleText}>Hi there</Text>
     </View>
   );
