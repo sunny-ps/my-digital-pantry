@@ -3,4 +3,5 @@ export const theme = {
     colorBlack: "#030F19",
     colorWhite: "#ffffff",
   },
+  borderRadius: 8,
 };

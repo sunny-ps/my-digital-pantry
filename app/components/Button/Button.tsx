@@ -1,9 +1,9 @@
 import { FC, ReactNode } from "react";
-import { Pressable, Text, StyleSheet } from "react-native";
+import { Pressable, Text, StyleSheet, PressableProps } from "react-native";
 
 import { theme } from "../../theme";
 
-interface IButtonProps {
+interface IButtonProps extends PressableProps {
   color?: "primary" | "secondary";
   children?: ReactNode;
 }
@@ -19,14 +19,16 @@ const buttonColors = {
   },
 };
 
-const Button: FC<IButtonProps> = ({ color = "primary", children }) => {
+const Button: FC<IButtonProps> = (props) => {
+  const { color = "primary", children, ..._props } = props;
+
   return (
     <Pressable
       style={Object.assign(
         { backgroundColor: buttonColors[color].backgroundColor },
         styles.pressable
       )}
-      onPress={() => console.log("Hi there")}
+      {..._props}
     >
       <Text
         style={Object.assign({ color: buttonColors[color].color }, styles.text)}
