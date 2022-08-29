@@ -1,12 +1,12 @@
 import { useRef, useCallback, FC } from "react";
-import { View, Image, Text, StyleSheet, SafeAreaView } from "react-native";
+import { View, Image, Text, StyleSheet } from "react-native";
 import BottomSheet, {
   BottomSheetBackdrop,
   BottomSheetBackdropProps,
 } from "@gorhom/bottom-sheet";
 import { NavigationProp } from "@react-navigation/native";
 
-import { Button, Input } from "$components";
+import { CustomSafeAreaView, Button, Input } from "$components";
 
 import type { NavigationPropType } from "$types";
 
@@ -25,7 +25,7 @@ const Login: FC<ILoginScreenProps> = ({ navigation }) => {
   );
   return (
     <>
-      <SafeAreaView>
+      <CustomSafeAreaView>
         <View style={styles.container}>
           <Image
             source={{
@@ -55,7 +55,7 @@ const Login: FC<ILoginScreenProps> = ({ navigation }) => {
             Log in
           </Button>
         </View>
-      </SafeAreaView>
+      </CustomSafeAreaView>
 
       <BottomSheet
         ref={bottomSheetRef}
@@ -72,7 +72,7 @@ const Login: FC<ILoginScreenProps> = ({ navigation }) => {
           <Text style={styles.titleText}>Welcome to Our App</Text>
           <Input label="Email" placeholder="example@email.com" />
 
-          <Input label="Password" placeholder="*********" isPassword />
+          <Input label="Password" placeholder="*********" secureTextEntry />
           <Button>Log in</Button>
           <Text
             style={{ textAlign: "center", textDecorationLine: "underline" }}
@@ -89,7 +89,7 @@ const styles = StyleSheet.create({
   container: {
     paddingLeft: 20,
     paddingRight: 20,
-    paddingTop: 10,
+    paddingTop: 20,
     paddingBottom: 40,
     height: "100%",
     justifyContent: "space-evenly",

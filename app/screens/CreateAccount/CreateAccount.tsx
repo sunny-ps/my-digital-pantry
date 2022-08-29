@@ -1,8 +1,8 @@
 import { FC } from "react";
-import { View, Text, SafeAreaView, StyleSheet, Pressable } from "react-native";
+import { View, Text, StyleSheet, Pressable } from "react-native";
 import { AntDesign } from "@expo/vector-icons";
 
-import { Button, Input } from "$components";
+import { CustomSafeAreaView, Button, Input } from "$components";
 
 import type { NavigationPropType } from "$types";
 
@@ -23,11 +23,11 @@ const NavBar: FC<ICreateAccountScreenProps> = ({ navigation }) => {
 
 const CreateAccount: FC<ICreateAccountScreenProps> = ({ navigation }) => {
   return (
-    <SafeAreaView style={{ flex: 1 }}>
+    <CustomSafeAreaView style={{ flex: 1 }}>
       <NavBar navigation={navigation} />
       <View style={styles.container}>
         <View>
-          <Text style={{ fontSize: 28, marginBottom: 5 }}>
+          <Text style={{ fontSize: 28, fontWeight: "bold", marginBottom: 5 }}>
             Create a new account
           </Text>
           <Text>Sign up in a couple of minutes</Text>
@@ -40,7 +40,7 @@ const CreateAccount: FC<ICreateAccountScreenProps> = ({ navigation }) => {
         </View>
         <Button>Continue</Button>
       </View>
-    </SafeAreaView>
+    </CustomSafeAreaView>
   );
 };
 
@@ -58,7 +58,7 @@ const styles = StyleSheet.create({
     paddingBottom: 40,
   },
   inputWrapper: {
-    height: 330,
+    minHeight: "55%",
     justifyContent: "space-evenly",
   },
 });
