@@ -38,7 +38,21 @@ const CreateAccount: FC<ICreateAccountScreenProps> = ({ navigation }) => {
     handleSubmit,
     formState: { errors },
   } = useForm({ resolver: yupResolver(createAccountSchema) });
-  const onSubmit = (data: any) => console.log(data);
+  const onSubmit = async (data: any) => {
+    const { username, email, pwd } = data;
+    try {
+      const res = await fetch("http://localhost:3000/api/users", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ username, email, password: pwd }),
+      });
+      console.log(res);
+    } catch (err) {
+      console.log("Err", err);
+    }
+  };
   return (
     <SafeAreaView style={{ flex: 1 }}>
       <NavBar navigation={navigation} />
