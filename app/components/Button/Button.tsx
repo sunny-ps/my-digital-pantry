@@ -6,6 +6,7 @@ import { theme } from "../../theme";
 interface IButtonProps extends PressableProps {
   color?: "primary" | "secondary";
   children?: ReactNode;
+  onPress?: () => void;
 }
 
 const buttonColors = {
@@ -20,7 +21,7 @@ const buttonColors = {
 };
 
 const Button: FC<IButtonProps> = (props) => {
-  const { color = "primary", children, ..._props } = props;
+  const { color = "primary", children, onPress, ..._props } = props;
 
   return (
     <Pressable
@@ -29,6 +30,7 @@ const Button: FC<IButtonProps> = (props) => {
         styles.pressable
       )}
       {..._props}
+      onPress={onPress}
     >
       <Text
         style={Object.assign({ color: buttonColors[color].color }, styles.text)}
