@@ -1,15 +1,9 @@
 import { FC } from "react";
-import {
-  View,
-  Text,
-  SafeAreaView,
-  StyleSheet,
-  Pressable,
-  TextInput,
-} from "react-native";
+import { View, Text, SafeAreaView, StyleSheet, Pressable } from "react-native";
 import { AntDesign } from "@expo/vector-icons";
 import { useForm, Controller } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
+import { save } from "../../utility";
 
 import { createAccountSchema } from "../../schema";
 
@@ -48,11 +42,13 @@ const CreateAccount: FC<ICreateAccountScreenProps> = ({ navigation }) => {
         },
         body: JSON.stringify({ username, email, password: pwd }),
       });
-      console.log(res);
+      const data = await res.json();
+      save("token", `${data.token}`);
     } catch (err) {
-      console.log("Err", err);
+      console.log(err);
     }
   };
+
   return (
     <SafeAreaView style={{ flex: 1 }}>
       <NavBar navigation={navigation} />
