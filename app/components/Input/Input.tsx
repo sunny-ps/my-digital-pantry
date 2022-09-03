@@ -7,6 +7,8 @@ interface IInputProps {
   isPassword?: boolean;
   onChange: (...event: any[]) => void;
   value: string;
+  error: boolean;
+  errorMessage?: string;
 }
 
 const Input: FC<IInputProps> = ({
@@ -15,6 +17,8 @@ const Input: FC<IInputProps> = ({
   isPassword = false,
   value,
   onChange,
+  error,
+  errorMessage,
 }) => {
   return (
     <View>
@@ -26,6 +30,7 @@ const Input: FC<IInputProps> = ({
         value={value}
         onChangeText={onChange}
       />
+      {error && <Text style={styles.errorText}>{errorMessage}</Text>}
     </View>
   );
 };
@@ -45,6 +50,11 @@ const styles = StyleSheet.create({
     marginBottom: 5,
     fontWeight: "bold",
     fontSize: 19.2,
+  },
+  errorText: {
+    marginTop: 4,
+    fontSize: 14,
+    color: "red",
   },
 });
 

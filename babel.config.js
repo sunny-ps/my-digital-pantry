@@ -11,6 +11,7 @@ module.exports = function (api) {
             $components: "./app/components",
             $screens: "./app/screens",
             $types: "./app/types",
+            $schema: "./app/schema",
           },
         },
       ],

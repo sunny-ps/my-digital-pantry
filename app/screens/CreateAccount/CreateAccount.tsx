@@ -9,6 +9,9 @@ import {
 } from "react-native";
 import { AntDesign } from "@expo/vector-icons";
 import { useForm, Controller } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup";
+
+import { createAccountSchema } from "../../schema";
 
 import { Button, Input } from "$components";
 
@@ -34,7 +37,7 @@ const CreateAccount: FC<ICreateAccountScreenProps> = ({ navigation }) => {
     control,
     handleSubmit,
     formState: { errors },
-  } = useForm();
+  } = useForm({ resolver: yupResolver(createAccountSchema) });
   const onSubmit = (data: any) => console.log(data);
   return (
     <SafeAreaView style={{ flex: 1 }}>
@@ -53,17 +56,15 @@ const CreateAccount: FC<ICreateAccountScreenProps> = ({ navigation }) => {
               required: true,
             }}
             render={({ field: { onChange, value } }) => (
-              <Input label="Name" onChange={onChange} value={value} />
-            )}
-            name="name"
-          />
-          <Controller
-            control={control}
-            rules={{
-              required: true,
-            }}
-            render={({ field: { onChange, value } }) => (
-              <Input label="Username" onChange={onChange} value={value} />
+              <Input
+                label="Username"
+                onChange={onChange}
+                value={value}
+                error={errors.username ? true : false}
+                errorMessage={
+                  errors.username && errors.username.message?.toString()
+                }
+              />
             )}
             name="username"
           />
@@ -73,7 +74,13 @@ const CreateAccount: FC<ICreateAccountScreenProps> = ({ navigation }) => {
               required: true,
             }}
             render={({ field: { onChange, value } }) => (
-              <Input label="Email" onChange={onChange} value={value} />
+              <Input
+                label="Email"
+                onChange={onChange}
+                value={value}
+                error={errors.email ? true : false}
+                errorMessage={errors.email && errors.email.message?.toString()}
+              />
             )}
             name="email"
           />
@@ -83,9 +90,31 @@ const CreateAccount: FC<ICreateAccountScreenProps> = ({ navigation }) => {
               required: true,
             }}
             render={({ field: { onChange, value } }) => (
-              <Input label="Password" onChange={onChange} value={value} />
+              <Input
+                label="Password"
+                onChange={onChange}
+                value={value}
+                error={errors.pwd ? true : false}
+                errorMessage={errors.pwd && errors.pwd.message?.toString()}
+              />
             )}
-            name="password"
+            name="pwd"
+          />
+          <Controller
+            control={control}
+            rules={{
+              required: true,
+            }}
+            render={({ field: { onChange, value } }) => (
+              <Input
+                label="Confirm Password"
+                onChange={onChange}
+                value={value}
+                error={errors.pwd2 ? true : false}
+                errorMessage={errors.pwd2 && errors.pwd2.message?.toString()}
+              />
+            )}
+            name="pwd2"
           />
           <Button onPress={handleSubmit(onSubmit)}>Submit</Button>
         </View>
