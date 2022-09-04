@@ -1,4 +1,4 @@
-import { FC } from "react";
+import { FC, useContext } from "react";
 import { View, Text, SafeAreaView, StyleSheet, Pressable } from "react-native";
 import { AntDesign } from "@expo/vector-icons";
 import { useForm, Controller } from "react-hook-form";
@@ -7,6 +7,7 @@ import { Button, Input } from "$components";
 import { createAccountSchema } from "$schema";
 import type { NavigationPropType } from "$types";
 import { save } from "$utility";
+import { UserContext } from "../../context/index";
 
 interface ICreateAccountScreenProps extends NavigationPropType {}
 
@@ -24,6 +25,7 @@ const NavBar: FC<ICreateAccountScreenProps> = ({ navigation }) => {
 };
 
 const CreateAccount: FC<ICreateAccountScreenProps> = ({ navigation }) => {
+  const userService = useContext(UserContext);
   const {
     control,
     handleSubmit,
@@ -41,6 +43,7 @@ const CreateAccount: FC<ICreateAccountScreenProps> = ({ navigation }) => {
       });
       const data = await res.json();
       save("token", `${data.token}`);
+      userService.setUser({ token: data.token });
     } catch (err) {
       console.log(err);
     }
