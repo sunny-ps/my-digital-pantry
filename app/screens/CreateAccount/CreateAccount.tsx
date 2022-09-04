@@ -3,13 +3,10 @@ import { View, Text, SafeAreaView, StyleSheet, Pressable } from "react-native";
 import { AntDesign } from "@expo/vector-icons";
 import { useForm, Controller } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { save } from "../../utility";
-
-import { createAccountSchema } from "../../schema";
-
 import { Button, Input } from "$components";
-
+import { createAccountSchema } from "$schema";
 import type { NavigationPropType } from "$types";
+import { save } from "$utility";
 
 interface ICreateAccountScreenProps extends NavigationPropType {}
 

@@ -6,16 +6,25 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { registerRootComponent } from "expo";
 
 // import { AppBar } from "$components";
-import { Login, CreateAccount } from "$screens";
+import { Login, CreateAccount, Home } from "$screens";
 
 const Stack = createNativeStackNavigator();
 const App = () => {
+  const signedIn = true;
   return (
     <SafeAreaProvider>
       <NavigationContainer>
         <Stack.Navigator screenOptions={{ headerShown: false }}>
-          <Stack.Screen name="Login" component={Login} />
-          <Stack.Screen name="CreateAccount" component={CreateAccount} />
+          {signedIn ? (
+            <>
+              <Stack.Screen name="Home" component={Home} />
+            </>
+          ) : (
+            <>
+              <Stack.Screen name="Login" component={Login} />
+              <Stack.Screen name="CreateAccount" component={CreateAccount} />
+            </>
+          )}
         </Stack.Navigator>
       </NavigationContainer>
     </SafeAreaProvider>

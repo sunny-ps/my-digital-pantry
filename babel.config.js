@@ -12,6 +12,7 @@ module.exports = function (api) {
             $screens: "./app/screens",
             $types: "./app/types",
             $schema: "./app/schema",
+            $utility: "./app/utility",
           },
         },
       ],

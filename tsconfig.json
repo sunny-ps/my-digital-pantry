@@ -11,7 +11,8 @@
       "$screens/*": ["app/screens/*"],
       "$screens": ["app/screens"],
       "$hooks": ["app/hooks"],
-      "$types": ["app/types"]
+      "$types": ["app/types"],
+      "$utility": ["app/utility"]
     }
   }
 }
