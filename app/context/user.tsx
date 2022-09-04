@@ -1,4 +1,10 @@
-import { createContext, useContext, useState, PropsWithChildren } from "react";
+import {
+  createContext,
+  useState,
+  PropsWithChildren,
+  Dispatch,
+  SetStateAction,
+} from "react";
 import { User } from "$types";
 
 export const UserContext = createContext<UserState>({
@@ -8,16 +14,15 @@ export const UserContext = createContext<UserState>({
 
 interface UserState {
   user: User;
-  setUser: any;
+  setUser: Dispatch<SetStateAction<User>>;
 }
-
-// export const UserDataProvider: React.FC<PropsWithChildren> = ({ children }) => {
-//   const [user, setUser] = useState<User>({});
-//   return (
-//     <UserContext.Provider value={{ user, setUser }}>
-//       {children}
-//     </UserContext.Provider>
-//   );
-// };
+export const UserDataProvider: React.FC<PropsWithChildren> = ({ children }) => {
+  const [user, setUser] = useState<User>({});
+  return (
+    <UserContext.Provider value={{ user, setUser }}>
+      {children}
+    </UserContext.Provider>
+  );
+};
 
 //export const userService = useContext(UserContext);
