@@ -1,10 +1,15 @@
-import { useRef, useCallback, FC } from "react";
+import { useRef, useCallback, FC, useContext } from "react";
 import { View, Image, Text, StyleSheet, SafeAreaView } from "react-native";
 import BottomSheet, {
   BottomSheetBackdrop,
   BottomSheetBackdropProps,
 } from "@gorhom/bottom-sheet";
 import { NavigationProp } from "@react-navigation/native";
+import { useForm, Controller } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup";
+import { loginSchema } from "$schema";
+import { save } from "$utility";
+import { userService } from "$context";
 
 import { Button, Input } from "$components";
 
@@ -15,6 +20,32 @@ interface ILoginScreenProps extends NavigationPropType {
 }
 
 const Login: FC<ILoginScreenProps> = ({ navigation }) => {
+  const {
+    control,
+    handleSubmit,
+    formState: { errors },
+  } = useForm({ resolver: yupResolver(loginSchema) });
+  const { setUser, user } = userService();
+
+  const onSubmit = async (data: any) => {
+    const { username, pwd } = data;
+    try {
+      const res = await fetch("http://localhost:3000/api/users/login", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ username, password: pwd }),
+      });
+      const data = await res.json();
+
+      save("token", `${data.token}`);
+      setUser({ token: data.token });
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
   const bottomSheetRef = useRef<BottomSheet>(null);
 
   const renderBackdrop = useCallback(
@@ -70,10 +101,42 @@ const Login: FC<ILoginScreenProps> = ({ navigation }) => {
       >
         <View style={styles.popup}>
           <Text style={styles.titleText}>Welcome to Our App</Text>
-          <Input label="Email" placeholder="example@email.com" />
+          <Controller
+            control={control}
+            rules={{
+              required: true,
+            }}
+            render={({ field: { onChange, value } }) => (
+              <Input
+                label="Username"
+                onChange={onChange}
+                value={value}
+                error={errors.username ? true : false}
+                errorMessage={
+                  errors.username && errors.username.message?.toString()
+                }
+              />
+            )}
+            name="username"
+          />
 
-          <Input label="Password" placeholder="*********" isPassword />
-          <Button>Log in</Button>
+          <Controller
+            control={control}
+            rules={{
+              required: true,
+            }}
+            render={({ field: { onChange, value } }) => (
+              <Input
+                label="Password"
+                onChange={onChange}
+                value={value}
+                error={errors.pwd ? true : false}
+                errorMessage={errors.pwd && errors.pwd.message?.toString()}
+              />
+            )}
+            name="pwd"
+          />
+          <Button onPress={handleSubmit(onSubmit)}>Log in</Button>
           <Text
             style={{ textAlign: "center", textDecorationLine: "underline" }}
           >

@@ -1,6 +1,7 @@
 import {
   createContext,
   useState,
+  useContext,
   PropsWithChildren,
   Dispatch,
   SetStateAction,
@@ -25,4 +26,4 @@ export const UserDataProvider: React.FC<PropsWithChildren> = ({ children }) => {
   );
 };
 
-//export const userService = useContext(UserContext);
+export const userService = () => useContext(UserContext);

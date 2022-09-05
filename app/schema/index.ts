@@ -8,3 +8,8 @@ export const createAccountSchema = yup.object({
     .string()
     .oneOf([yup.ref("pwd"), null], "Please ensure passwords match"),
 });
+
+export const loginSchema = yup.object({
+  username: yup.string().required("Please enter a username"),
+  pwd: yup.string().required("Please enter a password"),
+});
