@@ -1,21 +1,20 @@
 import { FC } from "react";
 import { View, Text, TextInput, StyleSheet } from "react-native";
 
-interface IInputProps {
+import type { TextInputProps } from "react-native";
+
+interface IInputProps extends TextInputProps {
   placeholder?: string;
   label?: string;
-  isPassword?: boolean;
 }
 
-const Input: FC<IInputProps> = ({ placeholder, label, isPassword = false }) => {
+const Input: FC<IInputProps> = (props) => {
+  const { label, ...textInputProps } = props;
+
   return (
     <View>
       {label && <Text style={styles.label}>{label}</Text>}
-      <TextInput
-        secureTextEntry={isPassword}
-        style={styles.input}
-        placeholder={placeholder}
-      />
+      <TextInput style={styles.input} {...textInputProps} />
     </View>
   );
 };

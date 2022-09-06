@@ -23,6 +23,7 @@ const Login: FC<ILoginScreenProps> = ({ navigation }) => {
     ),
     []
   );
+
   return (
     <>
       <CustomSafeAreaView>
@@ -68,7 +69,7 @@ const Login: FC<ILoginScreenProps> = ({ navigation }) => {
           borderColor: "#C9C9C9",
         }}
       >
-        <View style={styles.popup}>
+        <View style={styles.bottomSheet}>
           <Text style={styles.titleText}>Welcome to Our App</Text>
           <Input label="Email" placeholder="example@email.com" />
 
@@ -98,14 +99,14 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     fontSize: 33.18,
   },
-  popupBackdrop: {
+  bottomSheetBackdrop: {
     height: "100%",
     backgroundColor: "rgba(0, 0, 0, 0.1)",
     width: "100%",
     position: "absolute",
     justifyContent: "flex-end",
   },
-  popup: {
+  bottomSheet: {
     flex: 1,
     zIndex: 5,
     width: "100%",

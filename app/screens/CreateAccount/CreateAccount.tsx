@@ -36,7 +36,7 @@ const CreateAccount: FC<ICreateAccountScreenProps> = ({ navigation }) => {
           <Input label="Name" placeholder="Jamie" />
           <Input label="Username" placeholder="jamie1999" />
           <Input label="Email" placeholder="example@email.com" />
-          <Input label="Password" placeholder="********" />
+          <Input label="Password" placeholder="********" secureTextEntry />
         </View>
         <Button>Continue</Button>
       </View>

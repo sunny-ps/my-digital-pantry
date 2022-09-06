@@ -18,14 +18,24 @@ interface ICustomSafeAreaViewProps {
  */
 const CustomSafeAreaView: FC<ICustomSafeAreaViewProps> = (props) => {
   if (Platform.OS === "ios") {
-    return <SafeAreaView style={props.style}>{props.children}</SafeAreaView>;
+    return (
+      <SafeAreaView style={[styles.containeriOS, props.style]}>
+        {props.children}
+      </SafeAreaView>
+    );
   }
 
-  return <View style={[styles.container, props.style]}>{props.children}</View>;
+  return (
+    <View style={[styles.containerAndroid, props.style]}>{props.children}</View>
+  );
 };
 
 const styles = {
-  container: {
+  containeriOS: {
+    flex: 1,
+  },
+  containerAndroid: {
+    flex: 1,
     paddingTop: StatusBar.currentHeight,
   },
 };
