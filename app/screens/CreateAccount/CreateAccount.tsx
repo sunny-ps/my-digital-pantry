@@ -12,7 +12,7 @@ const NavBar: FC<ICreateAccountScreenProps> = ({ navigation }) => {
   return (
     <View>
       <Pressable
-        style={styles.navBackButton}
+        style={{ paddingHorizontal: 9 }}
         onPress={() => navigation.goBack()}
       >
         <AntDesign name="arrowleft" size={32} color="black" activeOpacity={0} />
@@ -23,7 +23,7 @@ const NavBar: FC<ICreateAccountScreenProps> = ({ navigation }) => {
 
 const CreateAccount: FC<ICreateAccountScreenProps> = ({ navigation }) => {
   return (
-    <CustomSafeAreaView style={{ flex: 1 }}>
+    <CustomSafeAreaView>
       <NavBar navigation={navigation} />
       <View style={styles.container}>
         <View>
@@ -45,10 +45,6 @@ const CreateAccount: FC<ICreateAccountScreenProps> = ({ navigation }) => {
 };
 
 const styles = StyleSheet.create({
-  navBackButton: {
-    paddingLeft: 8,
-    paddingRight: 8,
-  },
   container: {
     flex: 1,
     justifyContent: "space-between",
