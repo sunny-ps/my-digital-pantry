@@ -18,3 +18,7 @@ export interface RecipeProps {
   recipePrepTime: string;
   recipeServe: number;
 }
+
+export interface User {
+  token?: string;
+}

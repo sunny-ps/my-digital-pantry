@@ -8,6 +8,7 @@ import { theme } from "../../theme";
 interface IButtonProps extends PressableProps {
   color?: "primary" | "secondary";
   children?: ReactNode;
+  onPress?: () => void;
 }
 
 const buttonColors = {
