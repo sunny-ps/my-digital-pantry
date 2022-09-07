@@ -4,6 +4,7 @@ export * from "./CustomSafeAreaView";
 /* molecules */
 export * from "./AppBar";
 export * from "./ProductCard";
+export * from "./RecipeCard";
 export * from "./QuickAdd";
 export * from "./PantryHeader";
 

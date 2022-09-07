@@ -7,7 +7,7 @@ import { GestureHandlerRootView } from "react-native-gesture-handler";
 import { registerRootComponent } from "expo";
 
 // import { AppBar } from "$components";
-import { Login, CreateAccount, Pantry } from "$screens";
+import { Login, CreateAccount, Pantry, Recipes } from "$screens";
 
 const Stack = createNativeStackNavigator();
 
@@ -22,6 +22,7 @@ const App = () => {
             <Stack.Screen name="CreateAccount" component={CreateAccount} />
             */}
             <Stack.Screen name="Pantry" component={Pantry} />
+            <Stack.Screen name="Recipes" component={Recipes} />
           </Stack.Navigator>
         </NavigationContainer>
       </GestureHandlerRootView>

@@ -15,9 +15,9 @@ export interface IProductCardProps extends ItemProps {
 
 const ProductCard: FC<IProductCardProps> = ({
   id,
-  itemName,
-  itemImage,
-  itemMeasure,
+  name,
+  image,
+  measure,
   status,
   isEditable,
   setSelectedItems,
@@ -34,7 +34,7 @@ const ProductCard: FC<IProductCardProps> = ({
     if (isSelected)
       setSelectedItems!((prevState) => [
         ...prevState,
-        { id, itemName, itemMeasure, itemImage } as ItemProps,
+        { id, name, measure, image } as ItemProps,
       ]);
 
     if (!isSelected) {
@@ -97,17 +97,17 @@ const ProductCard: FC<IProductCardProps> = ({
       )}
 
       <View style={styles.itemCardWrapper}>
-        <Text style={styles.itemNameText}>{itemName}</Text>
+        <Text style={styles.nameText}>{name}</Text>
         <Image
           source={{
-            uri: itemImage,
+            uri: image,
           }}
           style={{
             width: 119,
             height: 100,
           }}
         />
-        <Text>{itemMeasure}</Text>
+        <Text>{measure}</Text>
         <Pill isDisabled label={status} />
       </View>
     </View>
@@ -130,9 +130,9 @@ const styles = StyleSheet.create({
     borderColor: theme.colors.colorBlack,
     borderWidth: 1,
     paddingVertical: 15,
-    paddingHorizontal: 13,
+    paddingHorizontal: 10,
   },
-  itemNameText: {
+  nameText: {
     fontWeight: "bold",
     fontSize: 19.2,
   },

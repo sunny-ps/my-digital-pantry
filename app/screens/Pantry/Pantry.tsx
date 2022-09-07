@@ -1,9 +1,7 @@
 import { useEffect, useState, useRef } from "react";
 import { View, ScrollView, Text, StyleSheet } from "react-native";
-import BottomSheet, {
-  BottomSheetBackdrop,
-  BottomSheetBackdropProps,
-} from "@gorhom/bottom-sheet";
+import BottomSheet from "@gorhom/bottom-sheet";
+import { differenceInDays } from "date-fns";
 
 import {
   Pill,
@@ -15,7 +13,8 @@ import {
 } from "$components";
 
 import type { ItemProps } from "$types";
-import { theme } from "../../theme";
+
+import pantryData from "../../mockData/pantryData";
 
 export type Filter = "all" | "current" | "expired";
 
@@ -25,34 +24,39 @@ const filters: Array<{ id: number; label: Filter }> = [
   { id: 3, label: "expired" },
 ];
 
-const pantryItems: Array<ItemProps> = [
-  {
-    id: 1,
-    itemName: "Lettuce",
-    itemImage: "",
-    itemMeasure: "300g",
-    status: "EXPIRING SOON",
-  },
-  {
-    id: 2,
-    itemName: "Milk",
-    itemImage: "",
-    itemMeasure: "300g",
-    status: "EXPIRING SOON",
-  },
-  {
-    id: 3,
-    itemName: "Cheese",
-    itemImage: "",
-    itemMeasure: "1kg",
-    status: "EXPIRED",
-  },
-];
+/**
+ * Transform the pantry data by adding the item status (EXPIRED or EXPIRING SOON and sort the add
+ * by showing EXPIRED first and then the EXPIRING SOON)
+ * @params data: Array contain the pantry items
+ * @returns updated array
+ */
+const updatePantryData = (data: Array<ItemProps>) => {
+  const updatedPantryData = data.map((item) => ({
+    ...item,
+    status:
+      differenceInDays(new Date(), item.expiry!!) < 0
+        ? "EXPIRED"
+        : "EXPIRING SOON",
+  }));
+  // pantry data sorted from EXPIRED -> EXPIRING SOON
+  const sortedPantryData = updatedPantryData.sort((a, b) => {
+    const statusA = a.status === "EXPIRED" ? 1 : 0;
+    const statusB = b.status === "EXPIRED" ? 1 : 0;
+
+    return statusB - statusA;
+  });
+
+  return sortedPantryData;
+};
 
 const Pantry = () => {
+  const pantryItems = updatePantryData(pantryData);
+
   const [activeFilter, setActiveFilter] = useState(filters[0]);
+  // list of items based on what what filter is active
   const [filteredItem, setFilteredItems] = useState(pantryItems);
 
+  // edit menu selected items
   const [selectedItems, setSelectedItems] = useState<Array<ItemProps> | []>([]);
   const [editable, setEditable] = useState(false);
 
@@ -79,7 +83,6 @@ const Pantry = () => {
   }, [activeFilter]);
 
   useEffect(() => {
-    console.log(editable && selectedItems.length);
     editable && selectedItems.length !== 0
       ? bottomSheetRef.current?.expand()
       : bottomSheetRef.current?.close();
@@ -143,10 +146,10 @@ const Pantry = () => {
               {filteredItem.map((item) => (
                 <ProductCard
                   id={item.id}
-                  itemName={item.itemName}
-                  itemMeasure={item.itemMeasure}
+                  name={item.name}
+                  measure={item.measure}
                   status={item.status}
-                  itemImage="https://via.placeholder.com/111x100?text=cool+picture+here"
+                  image="https://via.placeholder.com/111x100?text=cool+picture+here"
                   key={item.id}
                   isEditable={editable}
                   setSelectedItems={setSelectedItems}

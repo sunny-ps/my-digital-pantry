@@ -1,5 +1,6 @@
-import { useState } from "react";
+import { useState, FC } from "react";
 import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
+import { useNavigation } from "@react-navigation/native";
 
 import { theme } from "../../theme";
 
@@ -7,29 +8,40 @@ export type MenuItemKey =
   | "pantry"
   | "fridge"
   | "cupboard"
-  | "recepies"
+  | "recipes"
   | "overview";
 
-export type MenuItemsType = {
-  [key in "lhs" | "rhs"]: Array<{
-    key: MenuItemKey;
-    title: string;
-  }>;
+export type MenuItemProps = {
+  key: MenuItemKey;
+  title: string;
+  page: string | number | symbol;
+};
+
+export type MenuItemsSegmentedMenu = {
+  [key in "lhs" | "rhs"]: Array<MenuItemProps>;
 };
 
 const PantryHeader = () => {
   const [activeMenu, setActiveMenu] = useState<MenuItemKey>("pantry");
 
-  const menuItems: MenuItemsType = {
+  const navigation = useNavigation();
+
+  const menuItems: MenuItemsSegmentedMenu = {
     lhs: [
-      { key: "pantry", title: "Pantry" },
-      { key: "fridge", title: "Fridge" },
-      { key: "cupboard", title: "Cupboard" },
+      { key: "pantry", title: "Pantry", page: "Pantry" },
+      { key: "fridge", title: "Fridge", page: "Fridge" },
+      { key: "cupboard", title: "Cupboard", page: "Cupboard" },
     ],
     rhs: [
-      { key: "recepies", title: "Recepies" },
-      { key: "overview", title: "Weekly Overview" },
+      { key: "recipes", title: "Recipes", page: "Recipes" },
+      { key: "overview", title: "Weekly Overview", page: "WeeklyOverview" },
     ],
+  };
+
+  const handleOnPress = (menuItem: MenuItemProps) => {
+    setActiveMenu(menuItem.key);
+    // @ts-ignore
+    navigation.navigate(menuItem.page);
   };
 
   return (
@@ -53,7 +65,7 @@ const PantryHeader = () => {
           {menuItems["lhs"].map((item) => (
             <TouchableOpacity
               key={item.key}
-              onPress={() => setActiveMenu(item.key)}
+              onPress={() => handleOnPress(item)}
               style={{
                 borderBottomWidth: activeMenu === item.key ? 4 : 0,
                 borderBottomColor: theme.colors.colorBlack,
@@ -68,7 +80,7 @@ const PantryHeader = () => {
           {menuItems["rhs"].map((item) => (
             <TouchableOpacity
               key={item.key}
-              onPress={() => setActiveMenu(item.key)}
+              onPress={() => handleOnPress(item)}
               style={{
                 borderBottomWidth: activeMenu === item.key ? 4 : 0,
                 borderBottomColor: theme.colors.colorBlack,

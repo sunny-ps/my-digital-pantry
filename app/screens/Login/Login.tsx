@@ -10,7 +10,7 @@ import { CustomSafeAreaView, Button, Input } from "$components";
 
 import type { NavigationPropType } from "$types";
 
-interface ILoginScreenProps extends NavigationPropType {
+export interface ILoginScreenProps extends NavigationPropType {
   navigation: NavigationProp<any, any>;
 }
 
