@@ -1,7 +1,9 @@
 import { FC } from "react";
 import { View, Text, TextInput, StyleSheet } from "react-native";
 
-interface IInputProps {
+import type { TextInputProps } from "react-native";
+
+interface IInputProps extends TextInputProps {
   placeholder?: string;
   label?: string;
   isPassword?: boolean;

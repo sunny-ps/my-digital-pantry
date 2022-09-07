@@ -1,5 +1,7 @@
 import { FC, ReactNode } from "react";
-import { Pressable, Text, StyleSheet, PressableProps } from "react-native";
+import { Pressable, Text, StyleSheet } from "react-native";
+
+import type { PressableProps } from "react-native";
 
 import { theme } from "../../theme";
 
@@ -21,16 +23,20 @@ const buttonColors = {
 };
 
 const Button: FC<IButtonProps> = (props) => {
-  const { color = "primary", children, onPress, ..._props } = props;
+  const { color = "primary", children, style, ...buttonProps } = props;
 
   return (
     <Pressable
       style={Object.assign(
-        { backgroundColor: buttonColors[color].backgroundColor },
-        styles.pressable
+        {
+          backgroundColor: buttonColors[color].backgroundColor,
+          paddingVertical: 12,
+          paddingHorizontal: 20,
+          borderRadius: 8,
+        },
+        style
       )}
-      {..._props}
-      onPress={onPress}
+      {...buttonProps}
     >
       <Text
         style={Object.assign({ color: buttonColors[color].color }, styles.text)}
@@ -42,14 +48,7 @@ const Button: FC<IButtonProps> = (props) => {
 };
 
 const styles = StyleSheet.create({
-  pressable: {
-    width: "100%",
-    paddingTop: 12,
-    paddingBottom: 12,
-    paddingRight: 90,
-    paddingLeft: 90,
-    borderRadius: 8,
-  },
+  pressable: {},
   text: {
     textAlign: "center",
     fontSize: 19,

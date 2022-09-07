@@ -11,11 +11,11 @@ import { loginSchema } from "$schema";
 import { save } from "$utility";
 import { userService } from "$context";
 
-import { Button, Input } from "$components";
+import { CustomSafeAreaView, Button, Input } from "$components";
 
 import type { NavigationPropType } from "$types";
 
-interface ILoginScreenProps extends NavigationPropType {
+export interface ILoginScreenProps extends NavigationPropType {
   navigation: NavigationProp<any, any>;
 }
 
@@ -54,9 +54,10 @@ const Login: FC<ILoginScreenProps> = ({ navigation }) => {
     ),
     []
   );
+
   return (
     <>
-      <SafeAreaView>
+      <CustomSafeAreaView>
         <View style={styles.container}>
           <Image
             source={{
@@ -86,7 +87,7 @@ const Login: FC<ILoginScreenProps> = ({ navigation }) => {
             Log in
           </Button>
         </View>
-      </SafeAreaView>
+      </CustomSafeAreaView>
 
       <BottomSheet
         ref={bottomSheetRef}
@@ -99,7 +100,7 @@ const Login: FC<ILoginScreenProps> = ({ navigation }) => {
           borderColor: "#C9C9C9",
         }}
       >
-        <View style={styles.popup}>
+        <View style={styles.bottomSheet}>
           <Text style={styles.titleText}>Welcome to Our App</Text>
           <Controller
             control={control}
@@ -152,7 +153,7 @@ const styles = StyleSheet.create({
   container: {
     paddingLeft: 20,
     paddingRight: 20,
-    paddingTop: 10,
+    paddingTop: 20,
     paddingBottom: 40,
     height: "100%",
     justifyContent: "space-evenly",
@@ -161,14 +162,14 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     fontSize: 33.18,
   },
-  popupBackdrop: {
+  bottomSheetBackdrop: {
     height: "100%",
     backgroundColor: "rgba(0, 0, 0, 0.1)",
     width: "100%",
     position: "absolute",
     justifyContent: "flex-end",
   },
-  popup: {
+  bottomSheet: {
     flex: 1,
     zIndex: 5,
     width: "100%",

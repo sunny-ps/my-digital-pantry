@@ -1,9 +1,9 @@
-import { FC, useContext } from "react";
-import { View, Text, SafeAreaView, StyleSheet, Pressable } from "react-native";
+import { FC } from "react";
+import { View, Text, StyleSheet, Pressable } from "react-native";
 import { AntDesign } from "@expo/vector-icons";
 import { useForm, Controller } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { Button, Input } from "$components";
+import { Button, Input, CustomSafeAreaView } from "$components";
 import { createAccountSchema } from "$schema";
 import type { NavigationPropType } from "$types";
 import { save } from "$utility";
@@ -15,7 +15,7 @@ const NavBar: FC<ICreateAccountScreenProps> = ({ navigation }) => {
   return (
     <View>
       <Pressable
-        style={styles.navBackButton}
+        style={{ paddingHorizontal: 9 }}
         onPress={() => navigation.goBack()}
       >
         <AntDesign name="arrowleft" size={32} color="black" activeOpacity={0} />
@@ -50,7 +50,7 @@ const CreateAccount: FC<ICreateAccountScreenProps> = ({ navigation }) => {
   };
 
   return (
-    <SafeAreaView style={{ flex: 1 }}>
+    <CustomSafeAreaView>
       <NavBar navigation={navigation} />
       <View style={styles.container}>
         <View style={styles.headingWrapper}>
@@ -129,15 +129,11 @@ const CreateAccount: FC<ICreateAccountScreenProps> = ({ navigation }) => {
           <Button onPress={handleSubmit(onSubmit)}>Submit</Button>
         </View>
       </View>
-    </SafeAreaView>
+    </CustomSafeAreaView>
   );
 };
 
 const styles = StyleSheet.create({
-  navBackButton: {
-    paddingLeft: 8,
-    paddingRight: 8,
-  },
   container: {
     paddingLeft: 20,
     paddingRight: 20,
